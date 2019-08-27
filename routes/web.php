@@ -12,7 +12,6 @@
 */
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
-Route::get('products/{product}', 'ProductsController@show')->name('products.show');
 
 Auth::routes(['verify' => true]);
 
@@ -27,6 +26,9 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
     Route::put('user_addresses/{user_address}', 'UserAddressesController@update')->name('user_addresses.update');
     Route::delete('user_addresses/{user_address}', 'UserAddressesController@destroy')->name('user_addresses.destroy');
 
+    Route::get('products/favorites', 'ProductsController@favorites')->name('products.favorites');
+
     Route::post('products/{product}/favorite', 'ProductsController@favor')->name('products.favor');
     Route::delete('products/{product}/favorite', 'ProductsController@disfavor')->name('products.disfavor');
 });
+Route::get('products/{product}', 'ProductsController@show')->name('products.show');
