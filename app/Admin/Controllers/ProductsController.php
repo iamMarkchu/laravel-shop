@@ -90,7 +90,6 @@ class ProductsController extends Controller
 
         $grid->actions(function ($actions) {
             $actions->disableView();
-            $actions->disableDelete();
         });
         $grid->tools(function ($tools) {
             // 禁用批量删除按钮
@@ -98,6 +97,14 @@ class ProductsController extends Controller
                 $batch->disableDelete();
             });
         });
+
+        $grid->filter(function ($filter) {
+            $filter->expand();
+            $filter->disableIdFilter();
+            $filter->like('title', 'title');
+        });
+
+        $grid->column('title')->editable();
 
         return $grid;
     }
